@@ -1,6 +1,7 @@
 package com.huiboz.bio;
 
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
@@ -48,7 +49,10 @@ public class BIOServer {
                             System.out.println("check: " + Thread.currentThread().getName());
                             final int read = inputStream.read(bytes);
                             if (read != -1) {
-                                System.out.println("read: " + new String(bytes, 0 , read));
+                                String readStr = new String(bytes, 0 , read);
+                                System.out.print("read: " + readStr);
+                                clientSocket.getOutputStream().write(readStr.getBytes());
+
                             } else {
                                 System.out.println("read is -1");
                                 break;
